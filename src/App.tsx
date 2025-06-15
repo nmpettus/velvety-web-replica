@@ -78,7 +78,7 @@ function App() {
     <div className="min-h-screen">
       <div className="container mx-auto px-4 py-8 max-w-4xl">
         <h1 className="text-5xl font-bold text-center mb-12 highlight-gradient bg-clip-text text-transparent animate-fade-in">
-          Biblical Wisdom Guide
+          Ask Maggie Bible Questions
         </h1>
         
         <p className="text-center text-lg text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed animate-fade-in">
