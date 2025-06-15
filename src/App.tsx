@@ -86,22 +86,23 @@ function App() {
         </p>
         
         <form onSubmit={handleSubmit} className="mb-8">
-          <div className="relative">
+          <div className="relative group">
             <textarea
               ref={inputRef}
               value={question}
               onChange={(e) => setQuestion(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder="Ask your biblical question here..."
-              className="w-full p-6 pr-14 rounded-xl glass-card input-highlight min-h-[120px] resize-none text-lg"
+              className="w-full p-6 pr-14 rounded-xl glass-card input-highlight min-h-[120px] resize-none text-lg shadow-2xl border-2 border-purple-200/50 hover:border-purple-300/70 focus:border-purple-400 transition-all duration-300 group-hover:shadow-purple-200/30"
             />
             <button
               type="submit"
               disabled={isLoading || !question.trim()}
-              className="absolute right-4 bottom-4 p-3 rounded-full highlight-gradient text-white disabled:opacity-50 transition-all duration-300 hover:shadow-lg hover:scale-110 disabled:hover:scale-100"
+              className="absolute right-4 bottom-4 p-3 rounded-full highlight-gradient text-white disabled:opacity-50 transition-all duration-300 hover:shadow-lg hover:scale-110 disabled:hover:scale-100 shadow-lg"
             >
               <Send className="w-5 h-5" />
             </button>
+            <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
           </div>
         </form>
 
