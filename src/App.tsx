@@ -1,6 +1,6 @@
 import React from 'react';
-import { useState, useRef } from 'react';
-import { Send, Book, GraduationCap, MessageCircle, ExternalLink } from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
+import { Send, Book, GraduationCap, MessageCircle, ExternalLink, ArrowLeft } from 'lucide-react';
 import { getAnswer } from './lib/openai';
 import { getVerseContent } from './lib/bible';
 import { VerseModal } from './components/VerseModal';
@@ -21,6 +21,7 @@ function App() {
   const [question, setQuestion] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [answer, setAnswer] = useState<Answer | null>(null);
+  const [returnUrl, setReturnUrl] = useState<string | null>(null);
   const [selectedVerse, setSelectedVerse] = useState<{
     title: string;
     content: string;
@@ -28,6 +29,23 @@ function App() {
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Read the returnUrl query parameter from the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const returnUrlParam = urlParams.get('returnUrl');
+    if (returnUrlParam) {
+      setReturnUrl(decodeURIComponent(returnUrlParam));
+    }
+  }, []);
+
+  const handleReturn = () => {
+    if (returnUrl) {
+      window.location.href = returnUrl;
+    } else {
+      window.history.back();
+    }
+  };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
@@ -77,6 +95,18 @@ function App() {
   return (
     <div className="min-h-screen">
       <div className="container mx-auto px-4 py-8 max-w-4xl">
+        {returnUrl && (
+          <div className="mb-6 animate-fade-in">
+            <button
+              onClick={handleReturn}
+              className="flex items-center space-x-2 px-4 py-2 rounded-lg glass-card hover:bg-white/50 transition-all duration-300 text-gray-700 hover:text-indigo-600"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              <span>Return to previous page</span>
+            </button>
+          </div>
+        )}
+        
         <div className="flex items-center justify-center mb-12 animate-fade-in">
           <img 
             src="/MaggieRead.jpeg" 
