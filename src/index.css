@@ -32,6 +32,12 @@
   .question-glow {
     box-shadow: 0 0 30px rgba(147, 51, 234, 0.15), 0 10px 25px rgba(0, 0, 0, 0.1);
   }
+  
+  .paw-print {
+    @apply text-purple-400;
+    font-size: 1.5rem;
+    opacity: 0;
+  }
 }
 
 @keyframes fade-in {
@@ -44,6 +50,32 @@
   100% { background-position: 1000px 0; }
 }
 
+@keyframes paw-walk {
+  0% { 
+    transform: translateX(-100px); 
+    opacity: 0; 
+  }
+  10% { 
+    opacity: 1; 
+  }
+  90% { 
+    opacity: 1; 
+  }
+  100% { 
+    transform: translateX(400px); 
+    opacity: 0; 
+  }
+}
+
+@keyframes paw-bounce {
+  0%, 100% { 
+    transform: translateY(0) scale(1); 
+  }
+  50% { 
+    transform: translateY(-8px) scale(1.1); 
+  }
+}
+
 .animate-fade-in {
   animation: fade-in 0.5s ease-out forwards;
 }
@@ -54,4 +86,28 @@
 
 .animation-delay-400 {
   animation-delay: 400ms;
+}
+
+.paw-walking {
+  animation: paw-walk 3s ease-in-out infinite;
+}
+
+.paw-walking-1 {
+  animation-delay: 0s;
+}
+
+.paw-walking-2 {
+  animation-delay: 0.3s;
+}
+
+.paw-walking-3 {
+  animation-delay: 0.6s;
+}
+
+.paw-walking-4 {
+  animation-delay: 0.9s;
+}
+
+.paw-bouncing {
+  animation: paw-bounce 0.6s ease-in-out infinite;
 }

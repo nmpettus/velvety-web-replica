@@ -107,10 +107,21 @@ function App() {
         </form>
 
         {isLoading && (
-          <div className="flex justify-center items-center space-x-2 animate-pulse">
-            <div className="w-4 h-4 bg-indigo-500 rounded-full"></div>
-            <div className="w-4 h-4 bg-purple-500 rounded-full animation-delay-200"></div>
-            <div className="w-4 h-4 bg-pink-500 rounded-full animation-delay-400"></div>
+          <div className="flex flex-col items-center space-y-6 py-8">
+            <div className="text-center">
+              <p className="text-lg font-medium text-purple-600 mb-2">Maggie is thinking...</p>
+              <div className="relative w-80 h-16 overflow-hidden">
+                <div className="absolute top-4 paw-print paw-walking paw-walking-1">🐾</div>
+                <div className="absolute top-8 paw-print paw-walking paw-walking-2">🐾</div>
+                <div className="absolute top-4 paw-print paw-walking paw-walking-3">🐾</div>
+                <div className="absolute top-8 paw-print paw-walking paw-walking-4">🐾</div>
+              </div>
+            </div>
+            <div className="flex justify-center items-center space-x-3">
+              <div className="w-3 h-3 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full paw-bouncing"></div>
+              <div className="w-3 h-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full paw-bouncing animation-delay-200"></div>
+              <div className="w-3 h-3 bg-gradient-to-r from-pink-500 to-indigo-500 rounded-full paw-bouncing animation-delay-400"></div>
+            </div>
           </div>
         )}
 
