@@ -81,6 +81,10 @@ function App() {
           Biblical Wisdom Guide
         </h1>
         
+        <p className="text-center text-lg text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed animate-fade-in">
+          Answers are based on the New Testament covenant of Grace and God's Love as taught by Tim Keller, Andrew Farley, and others.
+        </p>
+        
         <form onSubmit={handleSubmit} className="mb-8">
           <div className="relative">
             <textarea
