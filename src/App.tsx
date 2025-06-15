@@ -83,7 +83,7 @@ function App() {
             alt="Maggie the friendly dog reading a book" 
             className="w-20 h-20 rounded-full shadow-lg mr-6 border-4 border-white/50"
           />
-          <h1 className="text-5xl font-bold highlight-gradient bg-clip-text text-transparent">
+          <h1 className="text-5xl font-bold highlight-gradient bg-clip-text text-transparent leading-tight py-2">
             Ask Maggie Bible Questions
           </h1>
         </div>
