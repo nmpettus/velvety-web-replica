@@ -36,15 +36,14 @@ function App() {
     const returnUrlParam = urlParams.get('returnUrl');
     if (returnUrlParam) {
       setReturnUrl(decodeURIComponent(returnUrlParam));
+    } else {
+      // Default to booksbymaggie.com if no return URL is specified
+      setReturnUrl('https://booksbymaggie.com');
     }
   }, []);
 
   const handleReturn = () => {
-    if (returnUrl) {
-      window.location.href = returnUrl;
-    } else {
-      window.history.back();
-    }
+    window.location.href = returnUrl || 'https://booksbymaggie.com';
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
