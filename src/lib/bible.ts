@@ -3,7 +3,27 @@ const API_BASE_URL = 'https://bible-api.com';
 
 // Helper function to clean and validate verse references
 function normalizeReference(reference: string): string {
-  // Remove any translation specifications
+  // First, try to extract a valid verse reference from the input string
+  // This regex looks for book names followed by chapter:verse patterns
+  const extractPattern = /\b([1-3]?\s*[A-Za-z]+(?:\s+[A-Za-z]+)*)\s+(\d+):(\d+)(?:-(\d+))?\b/;
+  const match = reference.match(extractPattern);
+  
+  if (match) {
+    // Reconstruct the reference from the matched parts
+    const book = match[1].trim();
+    const chapter = match[2];
+    const startVerse = match[3];
+    const endVerse = match[4];
+    
+    let normalized = `${book} ${chapter}:${startVerse}`;
+    if (endVerse) {
+      normalized += `-${endVerse}`;
+    }
+    
+    return normalized;
+  }
+  
+  // If no match found, try to clean up the original reference
   let normalized = reference
     .replace(/\b(niv|kjv|nasb|nlt|esv)\b/gi, '')  // Remove translation markers
     .replace(/\s+/g, ' ')                          // Normalize spaces
@@ -11,19 +31,30 @@ function normalizeReference(reference: string): string {
     .replace(/(\d+)\s+(\d+)/g, '$1:$2')           // Convert "chapter verse" to "chapter:verse"
     .trim();
 
-  // Validate basic reference format
-  const referencePattern = /^[\w\s]+ \d+:\d+(-\d+)?$/i;
-  if (!referencePattern.test(normalized)) {
-    throw new Error(
-      'Invalid verse reference format.\n' +
-      'Please use one of these formats:\n' +
-      '- Single verse: "John 3:16"\n' +
-      '- Verse range: "Romans 8:28-29"\n' +
-      '- Multiple verses: "Psalm 23:1-6"'
-    );
+  // Try the extraction pattern again on the cleaned string
+  const secondMatch = normalized.match(extractPattern);
+  if (secondMatch) {
+    const book = secondMatch[1].trim();
+    const chapter = secondMatch[2];
+    const startVerse = secondMatch[3];
+    const endVerse = secondMatch[4];
+    
+    let result = `${book} ${chapter}:${startVerse}`;
+    if (endVerse) {
+      result += `-${endVerse}`;
+    }
+    
+    return result;
   }
 
-  return normalized;
+  // If still no valid reference found, throw an error
+  throw new Error(
+    'Invalid verse reference format.\n' +
+    'Please use one of these formats:\n' +
+    '- Single verse: "John 3:16"\n' +
+    '- Verse range: "Romans 8:28-29"\n' +
+    '- Multiple verses: "Psalm 23:1-6"'
+  );
 }
 
 export async function getVerseContent(reference: string): Promise<string> {
