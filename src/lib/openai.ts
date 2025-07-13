@@ -151,6 +151,12 @@ export async function getAnswer(question: string): Promise<AIResponse> {
       throw new Error('No response received. Please try your question again.');
     }
     
+    // Check if response is non-JSON (plain text error message)
+    const trimmedResponse = response.trim();
+    if (trimmedResponse && !trimmedResponse.startsWith('{')) {
+      throw new Error(`AI message: ${trimmedResponse}`);
+    }
+    
     let parsedResponse;
     try {
       // Clean the response to ensure it's valid JSON
@@ -360,6 +366,12 @@ export async function getAnswer(question: string): Promise<AIResponse> {
 
   } catch (error) {
     console.error('Error getting answer:', error);
+    
+    // Re-throw AI message errors directly to show the AI's actual response
+    if (error instanceof Error && error.message.startsWith('AI message:')) {
+      throw error;
+    }
+    
     throw new Error(
       error instanceof Error
         ? `${error.message}`
