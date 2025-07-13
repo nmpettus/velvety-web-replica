@@ -16,14 +16,14 @@ const openai = new OpenAI({
 
 // Verified book links that we know exist
 const VERIFIED_BOOKS = {
-  'Grace: The Power to Change': 'https://www.amazon.com/Grace-Power-Change-James-Richards/dp/1603749896',
-  'The Rest of the Gospel': 'https://www.amazon.com/Rest-Gospel-Really-When-Believe/dp/0964546507',
-  'The Power of Right Believing': 'https://www.amazon.com/Power-Right-Believing-Freedom-Believe/dp/1455553166',
-  'The Naked Gospel': 'https://www.amazon.com/Naked-Gospel-Truth-Never-Church/dp/0310293065',
-  'God Without Religion': 'https://www.amazon.com/God-without-Religion-Andrew-Farley/dp/0801014638',
-  'Grace Walk': 'https://www.amazon.com/Grace-Walk-Steve-McVey/dp/0736916393',
-  'The Normal Christian Life': 'https://www.amazon.com/Normal-Christian-Life-Watchman-Nee/dp/0842347100',
-  'Classic Christianity': 'https://www.amazon.com/Classic-Christianity-Lifes-Short-Missing/dp/0736926739'
+  'Jesus Storybook Bible': 'https://www.amazon.com/Jesus-Storybook-Bible-Every-Whispers/dp/0310708257',
+  'The Beginner\'s Bible': 'https://www.amazon.com/Beginners-Bible-Timeless-Childrens-Stories/dp/0310750130',
+  'Big Picture Story Bible': 'https://www.amazon.com/Big-Picture-Story-Bible/dp/1433542579',
+  'The Action Bible': 'https://www.amazon.com/Action-Bible-Gods-Redemptive-Unfolds/dp/0781444993',
+  'My First Bible': 'https://www.amazon.com/First-Bible-Kenneth-Taylor/dp/0842321810',
+  'Read and Share Bible': 'https://www.amazon.com/Read-Share-Bible-Gwen-Ellis/dp/1400308410',
+  'Spark Story Bible': 'https://www.amazon.com/Spark-Story-Bible-Deborah-ONeill/dp/0806656077',
+  'God\'s Little Princess Devotional Bible': 'https://www.amazon.com/Gods-Little-Princess-Devotional-Bible/dp/1400316774'
 };
 
 // Verified article sources
@@ -100,6 +100,7 @@ Your response MUST be a valid JSON object with this structure:
 IMPORTANT: For book references, ONLY use these verified titles:
 ${Object.keys(VERIFIED_BOOKS).map(title => `- ${title}`).join('\n')}
 
+When recommending books, always add a note that children should ask their parents or guardians before looking at any book links, and explain that these are special Bible books made just for kids.
 For articles, ONLY use content from these verified sources:
 ${VERIFIED_SOURCES.map(source => `- ${source}`).join('\n')}
 
@@ -246,15 +247,16 @@ export async function getAnswer(question: string): Promise<AIResponse> {
           ref = {
             ...ref,
             title: bookTitle,
-            link: VERIFIED_BOOKS[bookTitle]
+            link: VERIFIED_BOOKS[bookTitle],
+            description: `A wonderful Bible book for kids! Ask your parent or guardian to help you with this link. ${ref.description || ''}`
           };
         } else {
           // If no exact match, use a default grace-focused book
           ref = {
             ...ref,
-            title: 'Grace: The Power to Change',
-            link: VERIFIED_BOOKS['Grace: The Power to Change'],
-            description: `Alternative reference for: "${originalRef.title}". ${ref.description || ''}`
+            title: 'Jesus Storybook Bible',
+            link: VERIFIED_BOOKS['Jesus Storybook Bible'],
+            description: `A wonderful Bible book for kids! Ask your parent or guardian to help you with this link. Alternative reference for: "${originalRef.title}". ${ref.description || ''}`
           };
         }
         break;
