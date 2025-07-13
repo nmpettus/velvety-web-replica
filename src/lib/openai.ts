@@ -24,7 +24,6 @@ const VERIFIED_BOOKS = {
   'My First Bible': 'https://www.amazon.com/First-Bible-Kenneth-Taylor/dp/0842321810',
   'Read and Share Bible': 'https://www.amazon.com/Read-Share-Bible-Gwen-Ellis/dp/1400308410',
   'Spark Story Bible': 'https://www.amazon.com/Spark-Story-Bible-Deborah-ONeill/dp/0806656077',
-  'God\'s Little Princess Devotional Bible': 'https://www.amazon.com/Gods-Little-Princess-Devotional-Bible/dp/1400316774'
 };
 
 // Verified article sources
