@@ -17,7 +17,7 @@ const openai = new OpenAI({
 // Verified book links that we know exist
 const VERIFIED_BOOKS = {
   'Jesus Storybook Bible': 'https://www.amazon.com/Jesus-Storybook-Bible-Every-Whispers/dp/0310708257',
-  'The Beginner\'s Bible': 'https://www.amazon.com/Beginners-Bible-Timeless-Childrens-Stories/dp/0310750199',
+  'The Beginner\'s Bible': 'https://www.amazon.com/dp/0310750199',
   'The Illustrated Children\'s Bible': 'https://www.amazon.com/dp/0755498383',
   'Big Picture Story Bible': 'https://www.amazon.com/Big-Picture-Story-Bible/dp/1433542579',
   'The Action Bible': 'https://www.amazon.com/Action-Bible-Gods-Redemptive-Unfolds/dp/0781444993',
