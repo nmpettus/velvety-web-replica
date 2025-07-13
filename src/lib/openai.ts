@@ -370,8 +370,12 @@ export async function getAnswer(question: string): Promise<AIResponse> {
     }).filter(ref => ref.link && isValidUrl(ref.link));
 
     // Final validation before returning
-    if (!parsedResponse.text || !parsedResponse.references.length) {
-      throw new Error('Could not generate a complete answer. Please try rephrasing your question.');
+    if (!parsedResponse.text || !parsedResponse.text.trim()) {
+      throw new Error('The AI did not provide an answer. Please try rephrasing your question.');
+    }
+    
+    if (!parsedResponse.references || !parsedResponse.references.length) {
+      throw new Error('The AI did not provide supporting references. Please try asking a more specific Bible question.');
     }
 
     return parsedResponse;
